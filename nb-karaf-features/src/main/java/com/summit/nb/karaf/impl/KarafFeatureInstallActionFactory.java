@@ -7,7 +7,6 @@ package com.summit.nb.karaf.impl;
 import com.summit.nb.karaf.KarafFeatureNode;
 import com.summit.nb.karaf.KarafFeaturesFeatureNodeActionFactory;
 import java.awt.event.ActionEvent;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,7 +55,9 @@ public class KarafFeatureInstallActionFactory implements KarafFeaturesFeatureNod
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                featuresService.installFeature(feature, null);
+                EnumSet<FeaturesService.Option> options = EnumSet.of(FeaturesService.Option.PrintBundlesToRefresh);
+                //options.add(FeaturesService.Option.Verbose);
+                featuresService.installFeature(feature, options);
             } catch (Exception ex) {
                 Exceptions.printStackTrace(ex);
             }
