@@ -34,7 +34,7 @@ public class KarafFeaturesRootNode extends AbstractNode {
 
     public KarafFeaturesRootNode() {
         super(Children.LEAF);
-        setChildren(new KarafFeaturesRootChildren(featuresService.getLookup()));
+        setChildren(Children.create(new KarafFeaturesRootChildren(featuresService.getLookup()), true));
         setName(NbBundle.getMessage(KarafFeaturesRootNode.class, "LBL_KARAF_REPOS"));
         setDisplayName(NbBundle.getMessage(KarafFeaturesRootNode.class, "LBL_KARAF_REPOS"));
         setIconBaseWithExtension(ICON_BASE);

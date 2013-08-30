@@ -5,10 +5,11 @@
 package com.summit.nb.karaf.impl;
 
 import com.summit.nb.karaf.KarafFeaturesRepoNode;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.apache.karaf.features.Repository;
-import org.openide.nodes.Children;
+import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Node;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
@@ -18,7 +19,7 @@ import org.openide.util.LookupListener;
  *
  * @author justin
  */
-public class KarafFeaturesRootChildren extends Children.Keys<Repository> implements LookupListener {
+public class KarafFeaturesRootChildren extends ChildFactory<Repository> implements LookupListener {
 
     Lookup repoLookup;
     Lookup.Result<Repository> repos;
@@ -31,17 +32,27 @@ public class KarafFeaturesRootChildren extends Children.Keys<Repository> impleme
     }
 
     @Override
-    protected Node[] createNodes(Repository key) {
-        return new Node[]{new KarafFeaturesRepoNode(key)};
+    protected Node createNodeForKey(Repository key) {
+        return new KarafFeaturesRepoNode(key);
     }
-
+    
     @Override
     public void resultChanged(LookupEvent ev) {
-        setKeys(repos.allInstances());
+        refresh(false);
     }
 
+
     @Override
-    protected void addNotify() {
-        resultChanged(null);
+    protected boolean createKeys(List<Repository> toPopulate) {
+        toPopulate.addAll(repos.allInstances());
+        Collections.sort(toPopulate, new Comparator<Repository>(){
+
+            @Override
+            public int compare(Repository o1, Repository o2) {
+                return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+            }
+        });
+        return true;
     }
+    
 }
