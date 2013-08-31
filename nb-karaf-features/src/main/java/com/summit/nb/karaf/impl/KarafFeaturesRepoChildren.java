@@ -16,17 +16,23 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 
 /**
  *
  * @author justin
  */
-public class KarafFeaturesRepoChildren extends ChildFactory<Feature> {
+public class KarafFeaturesRepoChildren extends ChildFactory<Feature> implements LookupListener {
 
     private Repository repo;
+    private Lookup.Result<InstalledFeatureImpl> installedFeatures;
 
-    public KarafFeaturesRepoChildren(Repository repo) {
+    public KarafFeaturesRepoChildren(Lookup lookup, Repository repo) {
         this.repo = repo;
+        installedFeatures = lookup.lookupResult(InstalledFeatureImpl.class);
+        installedFeatures.addLookupListener(this);
     }
 
     @Override
@@ -55,5 +61,11 @@ public class KarafFeaturesRepoChildren extends ChildFactory<Feature> {
     @Override
     protected Node createNodeForKey(Feature key) {
         return new KarafFeatureNode(key);
+    }
+
+    @Override
+    public void resultChanged(LookupEvent ev) {
+        
+        refresh(false);
     }
 }

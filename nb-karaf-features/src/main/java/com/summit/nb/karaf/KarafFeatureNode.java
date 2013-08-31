@@ -22,11 +22,11 @@ import org.openide.util.Lookup;
  *
  * @author justin
  */
-public class KarafFeatureNode extends AbstractNode{
+public class KarafFeatureNode extends AbstractNode {
 
     private Feature feature;
     private FeaturesService featuresService = Lookup.getDefault().lookup(FeaturesService.class);
-    
+
     public KarafFeatureNode(Feature feature) {
         super(Children.LEAF);
         this.feature = feature;
@@ -36,13 +36,13 @@ public class KarafFeatureNode extends AbstractNode{
     public String getDisplayName() {
         return feature.getName();
     }
-    
+
     /**
      * @return the feature
      */
     public Feature getFeature() {
         return feature;
-    } 
+    }
 
     /**
      * @param feature the feature to set
@@ -53,7 +53,11 @@ public class KarafFeatureNode extends AbstractNode{
 
     @Override
     public Image getIcon(int type) {
-        return ImageUtilities.loadImage("com/summit/nb/karaf/karaf-logo_16.png");
+        if (!featuresService.isInstalled(feature)) {
+            return ImageUtilities.loadImage("com/summit/nb/karaf/karaf-logo_16.png");
+        } else {
+            return ImageUtilities.loadImage("com/summit/nb/karaf/karaf-logo_16_half.png");
+        }
     }
 
     @Override

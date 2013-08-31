@@ -138,6 +138,12 @@
             <artifactId>reflections</artifactId>
             <version>0.9.9-RC1</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-autoupdate-services</artifactId>
+            <version>RELEASE731</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

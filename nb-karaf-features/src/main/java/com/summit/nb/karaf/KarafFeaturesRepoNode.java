@@ -10,6 +10,7 @@ import org.apache.karaf.features.Repository;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.util.ImageUtilities;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,8 +20,8 @@ public class KarafFeaturesRepoNode extends AbstractNode{
 
     Repository repo;
     
-    public KarafFeaturesRepoNode(Repository repo) {
-        super(Children.create(new KarafFeaturesRepoChildren(repo),true));
+    public KarafFeaturesRepoNode(Lookup lookup, Repository repo) {
+        super(Children.create(new KarafFeaturesRepoChildren(lookup,repo),true));
         this.repo = repo;
     }
 

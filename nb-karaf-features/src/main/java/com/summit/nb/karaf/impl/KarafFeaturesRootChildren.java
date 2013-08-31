@@ -33,7 +33,7 @@ public class KarafFeaturesRootChildren extends ChildFactory<Repository> implemen
 
     @Override
     protected Node createNodeForKey(Repository key) {
-        return new KarafFeaturesRepoNode(key);
+        return new KarafFeaturesRepoNode(repoLookup,key);
     }
     
     @Override
