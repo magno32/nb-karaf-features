@@ -73,6 +73,11 @@
             <version>RELEASE731</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>NBModuleInfoViewer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
